@@ -64,7 +64,36 @@ document.addEventListener('DOMContentLoaded', () => {
     io.observe(sentinel);
   }
 
-  // 3. Hero wipe needs no JS: js/main.js already adds .animate-in to the
+  // 3. Brand lockup roll on hover (board 6a). Pointer devices only, and
+  //    suppressed while the navbar is condensed, which owns the same roll.
+  const brand = document.querySelector('.brand');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (brand && brand.querySelector('.brand-roll') && canHover) {
+    let timer = null;
+    const clear = () => { if (timer) { clearTimeout(timer); timer = null; } };
+
+    const enter = () => {
+      if (document.body.classList.contains('is-scrolled')) return;
+      clear();
+      brand.classList.add('is-step-1');
+      timer = setTimeout(() => {
+        brand.classList.remove('is-step-1');
+        brand.classList.add('is-step-2');
+      }, 520);
+    };
+
+    const leave = () => {
+      clear();
+      brand.classList.remove('is-step-1', 'is-step-2');
+    };
+
+    brand.addEventListener('mouseenter', enter);
+    brand.addEventListener('mouseleave', leave);
+    brand.addEventListener('focus', enter);
+    brand.addEventListener('blur', leave);
+  }
+
+  // 4. Hero wipe needs no JS: js/main.js already adds .animate-in to the
   //    .hero-headline, and css/nav-motion.css drives the two lines from it.
   //    Reduced motion is handled in CSS; nothing to branch on here.
   void reduce;
