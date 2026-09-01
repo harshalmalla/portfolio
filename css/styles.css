@@ -656,12 +656,18 @@ section[id] {
    IntersectionObserver in js/main.js drives it with no JS changes.
    clip-path is the one non-transform property animated on this page; it is
    composited, so this stays off the main thread. */
-.reveal-wipe {
+.reveal-wipe { clip-path: none; }
+
+/* The wipe clips an INNER span, never the observed element itself.
+   Clipping the observed element to zero area makes IntersectionObserver
+   report ratio 0, so it would never fire and the wipe would never open. */
+.reveal-wipe .wipe-inner {
+  display: inline-block;
   clip-path: inset(0 0 100% 0);
   transition: clip-path 0.5s var(--ease-out-cubic);
 }
 
-.reveal-wipe.is-revealed {
+.reveal-wipe.is-revealed .wipe-inner {
   clip-path: inset(0 0 0 0);
 }
 
@@ -1284,7 +1290,8 @@ section[id] {
     transition-delay: 0s !important;
   }
 
-  .reveal-wipe {
+  .reveal-wipe,
+  .reveal-wipe .wipe-inner {
     clip-path: none !important;
   }
 
