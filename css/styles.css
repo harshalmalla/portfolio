@@ -769,6 +769,92 @@ section[id] {
   line-height: 1.6;
 }
 
+/* --- Project Link Row (shared by split cards and compact cards) --- */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* Compact size modifier for the existing button system. Only trims the box:
+   radius, colour and hover behaviour all still come from .btn / .btn-primary /
+   .btn-secondary. */
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  gap: 0.45rem;
+}
+
+.btn-sm .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- Compact Project Entries (asymmetric 3-cell grid, no visual panel) ---
+   Exactly 3 cells for exactly 3 projects: two on row 1 (1.4fr / 1fr) and one
+   spanning the full width on row 2. No empty cells, and deliberately not a
+   row of three equal columns. */
+.projects-compact-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.75rem;
+  margin-top: 4rem;
+}
+
+.compact-card-wide {
+  grid-column: 1 / -1;
+}
+
+.compact-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.compact-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 16px 40px var(--shadow-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .compact-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.compact-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.compact-subtitle {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.compact-description {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* Pin the link row to the bottom so buttons align across cards of unequal
+   text length. */
+.compact-card .project-links {
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
 /* Stats / Visual Panel */
 .stats-panel {
   background-color: var(--bg);
@@ -1113,6 +1199,16 @@ section[id] {
 }
 
 @media (max-width: 768px) {
+  /* Compact project entries collapse to a single column. */
+  .projects-compact-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .compact-card-wide {
+    grid-column: auto;
+  }
+
   .section {
     padding: 64px 0;
   }

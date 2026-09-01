@@ -220,6 +220,15 @@
               <p class="project-description">
                 An agent-based AI system where a locally-hosted open-source LLM (Ollama / Llama 3.1) plans and executes control actions through a custom MCP tool-calling server, exchanging observations and actions with an EnergyPlus physics simulation over a REST/JSON boundary. A deterministic, Pydantic-validated safety layer gates every LLM-proposed setpoint before actuation. Covered by an automated pytest suite spanning the REST API, the MCP handshake, and the comfort validator.
               </p>
+
+                <div class="project-links">
+                  <a href="https://github.com/harshalmalla/Eco-Loop" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="Eco-Loop on GitHub">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
             </div>
 
             <!-- Stats Panel (Visual with Counter Animation) -->
@@ -281,6 +290,99 @@
               <p class="project-description">
                 A full-stack MERN platform with JWT-based authentication and role-based access control across Admin, Staff, and Customer roles. REST APIs and MongoDB schemas cover bookings, job cards, invoices, payments, and feedback, with a live analytics dashboard built in Recharts. Real-time job-status notifications via Socket.io, Stripe integrated for invoice payments, credentials secured with bcrypt.
               </p>
+
+              <div class="project-links">
+                <a href="https://baymanager-eight.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" aria-label="Bay Manager live demo">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  Live demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="projects-compact-grid">
+
+          <!-- PROJECT 3: Smart Resume Screener -->
+          <article class="compact-card reveal" style="--i: 0">
+            <h3 class="compact-title">Smart Resume Screener</h3>
+            <p class="compact-subtitle">LLM resume parsing and candidate fit scoring</p>
+            <div class="project-stack" aria-label="Technologies used">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">SQLAlchemy</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">Pydantic</span>
+              <span class="tag">pdfplumber</span>
+              <span class="tag">Google Gemini</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <p class="compact-description">Parses resumes from PDF or text, extracts structured candidate data with an LLM, and scores candidates against a job description with a justified fit score.</p>
+            <div class="project-links">
+              <a href="https://github.com/harshalmalla/smart-resume-screener" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Smart Resume Screener on GitHub">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </article>
+
+          <!-- PROJECT 4: Research Desk -->
+          <article class="compact-card reveal" style="--i: 1">
+            <h3 class="compact-title">Research Desk</h3>
+            <p class="compact-subtitle">Multi-agent research pipeline with cited reports</p>
+            <div class="project-stack" aria-label="Technologies used">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">LangChain</span>
+              <span class="tag">Google Gemini</span>
+              <span class="tag">Tavily</span>
+              <span class="tag">BeautifulSoup</span>
+              <span class="tag">Server-Sent Events</span>
+            </div>
+            <p class="compact-description">A multi-agent pipeline that plans, searches, scrapes, synthesizes, cites, fact-checks and critiques research reports, streaming live progress to a dashboard.</p>
+            <div class="project-links">
+              <a href="https://github.com/harshalmalla/Multiagent" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="Research Desk on GitHub">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </article>
+
+          <!-- PROJECT 5: CritiqueLoop (full-width cell, row 2) -->
+          <article class="compact-card reveal compact-card-wide" style="--i: 2">
+            <h3 class="compact-title">CritiqueLoop</h3>
+            <p class="compact-subtitle">Anonymous peer feedback exchange for portfolios</p>
+            <div class="project-stack" aria-label="Technologies used">
+              <span class="tag">TypeScript</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+            </div>
+            <p class="compact-description">An anonymous peer feedback platform where users submit portfolio links and are matched anonymously to exchange reviews. Frontend only, no login.</p>
+            <div class="project-links">
+              <a href="https://github.com/harshalmalla/CritiqueLoops" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="CritiqueLoop on GitHub">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                GitHub
+              </a>
+              <a href="https://harshalmalla.github.io/CritiqueLoops/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" aria-label="CritiqueLoop live demo">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Live demo
+              </a>
             </div>
           </article>
 
