@@ -76,6 +76,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/nav-motion.css">
 </head>
 <body id="top">
 
@@ -149,13 +150,14 @@
   </div>
 
   <main>
+    <div id="nav-sentinel" aria-hidden="true"></div>
     <!-- 2. Hero Section with Staggered Entrance -->
     <section class="hero">
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-headline animate-fade-up stagger-1">
-            Backend systems and AI agents,<br>
-            built to hold up under load.
+            <span class="hero-line">Backend systems and AI agents,</span>
+            <span class="hero-line">built to hold up under load.</span>
           </h1>
           <p class="hero-subtext animate-fade-up stagger-2">
             Final-year CS engineer specializing in agentic workflows, distributed logic, and high-performance backend architecture.
@@ -474,5 +476,6 @@
 
   <!-- Script -->
   <script src="js/main.js"></script>
+  <script src="js/nav-motion.js"></script>
 </body>
 </html>

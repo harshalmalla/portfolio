@@ -1,0 +1,95 @@
+/* Nav and motion layer for the approved mockups (turn 1a + 1e of the board).
+   Additive: load AFTER css/styles.css. Reuses existing tokens only. */
+
+/* 1. Sliding pill nav ---------------------------------------------------- */
+/* The pill replaces the underline created by js/main.js. */
+.nav-underline { display: none !important; }
+
+.nav-links { gap: 0.25rem; }
+
+.nav-link {
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-full);
+}
+
+.nav-pill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  border: 1px solid var(--border-accent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    transform 0.55s var(--ease-drawer),
+    width 0.55s var(--ease-drawer),
+    opacity 0.25s var(--ease-out-cubic);
+}
+
+.nav-links .nav-link,
+.nav-links .nav-cta,
+.nav-links .theme-toggle { position: relative; z-index: 1; }
+
+/* 2. Condensed navbar on scroll ----------------------------------------- */
+.navbar {
+  transition:
+    height 0.4s var(--ease-drawer),
+    background-color 0.4s var(--ease-out-cubic),
+    box-shadow 0.4s var(--ease-out-cubic);
+}
+
+body.is-scrolled .navbar {
+  height: 60px;
+  box-shadow: 0 6px 24px var(--shadow);
+}
+
+.brand {
+  transform-origin: left center;
+  transition: transform 0.4s var(--ease-drawer);
+}
+
+body.is-scrolled .brand { transform: scale(0.94); }
+
+/* 3. Hero headline clip wipe -------------------------------------------- */
+.hero-line {
+  display: block;
+  clip-path: inset(0 100% 0 0);
+}
+
+@keyframes heroLineWipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+.hero-headline.animate-in .hero-line {
+  animation: heroLineWipe 0.8s var(--ease-in-out) both;
+}
+.hero-headline.animate-in .hero-line:nth-child(1) { animation-delay: 0.10s; }
+.hero-headline.animate-in .hero-line:nth-child(2) { animation-delay: 0.22s; }
+
+/* 4. Pointer-only hover lift on nav items ------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .nav-links .nav-cta {
+    transition:
+      transform 0.25s var(--ease-out-cubic),
+      background-color var(--transition-fast);
+  }
+  .nav-links .nav-cta:hover { transform: translateY(-1px); }
+}
+
+/* 5. Reduced motion ------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  /* Position feedback survives, travel does not. */
+  .nav-pill {
+    transition-property: opacity;
+    transition-duration: 0.15s;
+  }
+  .navbar,
+  .brand { transition-duration: 0.01ms; }
+  .hero-line { clip-path: none; }
+  .hero-headline.animate-in .hero-line { animation: none; }
+}
