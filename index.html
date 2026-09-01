@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Harshal Kumar | Backend Systems & AI Agents Engineer</title>
+  <meta name="description" content="Personal portfolio of Malla Harshal Kumar, final-year Computer Science engineer specializing in backend systems, distributed logic, and autonomous AI agents.">
+  <meta name="theme-color" content="#0b0c0e">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+
+  <!-- 1. Sticky Navigation with Permanent Blur -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#top" class="brand" aria-label="Malla Harshal Kumar Home">
+        Malla Harshal Kumar
+        <span class="brand-dot"></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#resume" class="nav-link">Resume</a>
+        <a href="#contact" class="btn btn-primary nav-cta">Get in touch</a>
+      </nav>
+
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Sheet -->
+  <div id="mobile-menu" class="mobile-menu" aria-label="Mobile Navigation">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#resume" class="nav-link">Resume</a>
+    <a href="#contact" class="btn btn-primary nav-cta" style="margin-top: 1rem; width: 100%;">Get in touch</a>
+  </div>
+
+  <main>
+    <!-- 2. Hero Section with Staggered Entrance -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-headline animate-fade-up stagger-1">
+            Backend systems and AI agents,<br>
+            built to hold up under load.
+          </h1>
+          <p class="hero-subtext animate-fade-up stagger-2">
+            Final-year CS engineer specializing in agentic workflows, distributed logic, and high-performance backend architecture.
+          </p>
+          <div class="hero-ctas animate-fade-up stagger-3">
+            <a href="#projects" class="btn btn-primary">View projects</a>
+            <a href="assets/resume/Resume_Harshal.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <span class="section-label">01 / Background</span>
+        <h2 class="section-title">About</h2>
+        <div class="about-content reveal">
+          <p class="about-text">
+            I am a final-year Computer Science undergraduate at VIT-AP University (CGPA 8.33) with strong fundamentals in data structures, operating systems, DBMS, and distributed systems. My recent engineering work spans agent-based AI architectures, including a custom Model Context Protocol tool-calling server for closed-loop physics simulations, and full-stack MERN platforms with real-time transactional workflows. I focus on test-first, debugging-driven development using Java and Python to build resilient backend systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Projects Section -->
+    <section id="projects" class="section">
+      <div class="container">
+        <span class="section-label">02 / Featured Work</span>
+        <h2 class="section-title">Projects</h2>
+
+        <div class="projects-grid">
+          
+          <!-- PROJECT 1: Eco-Loop -->
+          <article class="project-card reveal">
+            <div class="project-info">
+              <h3 class="project-title">Eco-Loop</h3>
+              <p class="project-subtitle">Autonomous LLM agent for closed-loop building energy control (2026)</p>
+              
+              <div class="project-stack" aria-label="Technologies used">
+                <span class="tag">Python</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">Model Context Protocol (MCP)</span>
+                <span class="tag">Ollama (Llama 3.1)</span>
+                <span class="tag">EnergyPlus</span>
+                <span class="tag">pytest</span>
+              </div>
+
+              <p class="project-description">
+                An agent-based AI system where a locally-hosted open-source LLM (Ollama / Llama 3.1) plans and executes control actions through a custom MCP tool-calling server, exchanging observations and actions with an EnergyPlus physics simulation over a REST/JSON boundary. A deterministic, Pydantic-validated safety layer gates every LLM-proposed setpoint before actuation. Covered by an automated pytest suite spanning the REST API, the MCP handshake, and the comfort validator.
+              </p>
+            </div>
+
+            <!-- Stats Panel (Visual with Counter Animation) -->
+            <div class="project-visual">
+              <div class="stats-panel" aria-label="Key performance metrics">
+                <div class="stat-item">
+                  <span class="stat-number" data-counter data-target="6.25" data-suffix="%" data-decimals="2">6.25%</span>
+                  <span class="stat-label">Reduction in HVAC electricity use (232.4 kWh → 217.8 kWh) over a real 24-hour EnergyPlus run</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" data-counter data-target="0.5" data-prefix="±" data-suffix=" PMV" data-decimals="1">±0.5 PMV</span>
+                  <span class="stat-label">Occupied thermal comfort held within bounds (max |PMV| 0.268)</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" data-counter data-target="0" data-decimals="0">0</span>
+                  <span class="stat-label">Unsafe actuator writes across 50 MCP calls / 24 real-time hourly decisions</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 2: Bay Manager (Asymmetric Flip Layout) -->
+          <article class="project-card reverse reveal">
+            <!-- Fact Grid Panel (Visual on Left with Counter Animation) -->
+            <div class="project-visual">
+              <div class="fact-grid" aria-label="Key platform features">
+                <div class="fact-card">
+                  <span class="fact-title" data-counter data-target="3" data-suffix=" Roles" data-decimals="0">3 Roles</span>
+                  <span class="fact-desc">Role-based access control across Admin, Staff, and Customer</span>
+                </div>
+                <div class="fact-card">
+                  <span class="fact-title">Real-Time</span>
+                  <span class="fact-desc">Live job-status notifications powered by Socket.io</span>
+                </div>
+                <div class="fact-card">
+                  <span class="fact-title">Stripe</span>
+                  <span class="fact-desc">Secure transactional invoice payment processing</span>
+                </div>
+                <div class="fact-card">
+                  <span class="fact-title">Analytics</span>
+                  <span class="fact-desc">Live performance metrics dashboard in Recharts</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-info">
+              <h3 class="project-title">Bay Manager</h3>
+              <p class="project-subtitle">Garage service management platform (2025)</p>
+              
+              <div class="project-stack" aria-label="Technologies used">
+                <span class="tag">React</span>
+                <span class="tag">Node.js/Express</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Socket.io</span>
+                <span class="tag">Stripe</span>
+                <span class="tag">JWT</span>
+              </div>
+
+              <p class="project-description">
+                A full-stack MERN platform with JWT-based authentication and role-based access control across Admin, Staff, and Customer roles. REST APIs and MongoDB schemas cover bookings, job cards, invoices, payments, and feedback, with a live analytics dashboard built in Recharts. Real-time job-status notifications via Socket.io, Stripe integrated for invoice payments, credentials secured with bcrypt.
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <span class="section-label">03 / Technical Matrix</span>
+        <h2 class="section-title">Skills</h2>
+
+        <div class="skills-grid">
+          
+          <div class="skill-card reveal">
+            <h3 class="skill-category-name">Languages</h3>
+            <div class="skill-tags">
+              <span class="skill-pill">Java</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">C</span>
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">JavaScript</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3 class="skill-category-name">AI & LLM</h3>
+            <div class="skill-tags">
+              <span class="skill-pill">Model Context Protocol</span>
+              <span class="skill-pill">LangChain / LangGraph</span>
+              <span class="skill-pill">Agentic Tool-Calling</span>
+              <span class="skill-pill">Prompt Engineering</span>
+              <span class="skill-pill">Ollama (Llama 3.1)</span>
+              <span class="skill-pill">IBM Watsonx</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3 class="skill-category-name">Backend</h3>
+            <div class="skill-tags">
+              <span class="skill-pill">FastAPI</span>
+              <span class="skill-pill">Node.js / Express</span>
+              <span class="skill-pill">REST API Design</span>
+              <span class="skill-pill">Socket.io</span>
+              <span class="skill-pill">pytest</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3 class="skill-category-name">Frontend</h3>
+            <div class="skill-tags">
+              <span class="skill-pill">React</span>
+              <span class="skill-pill">JavaScript</span>
+              <span class="skill-pill">HTML</span>
+              <span class="skill-pill">CSS</span>
+              <span class="skill-pill">Recharts</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3 class="skill-category-name">Databases</h3>
+            <div class="skill-tags">
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">MongoDB</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3 class="skill-category-name">Tools & Cloud</h3>
+            <div class="skill-tags">
+              <span class="skill-pill">Git</span>
+              <span class="skill-pill">Docker</span>
+              <span class="skill-pill">AWS</span>
+              <span class="skill-pill">VS Code</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Resume & Background Section -->
+    <section id="resume" class="section">
+      <div class="container">
+        <span class="section-label">04 / Credentials</span>
+        <h2 class="section-title">Education & Certifications</h2>
+
+        <div class="resume-grid">
+          
+          <!-- Education Cluster -->
+          <div class="resume-card reveal">
+            <h3 class="resume-card-title">Education</h3>
+            <div class="education-item">
+              <h4 class="edu-school">VIT-AP University, Amaravati</h4>
+              <p class="edu-degree">B.Tech Computer Science Engineering</p>
+              <p class="edu-meta">2023, 2027 (expected) · CGPA 8.33</p>
+            </div>
+          </div>
+
+          <!-- Certifications Cluster -->
+          <div class="resume-card reveal">
+            <h3 class="resume-card-title">Certifications</h3>
+            <div class="cert-list">
+              <div class="cert-item">
+                <span class="cert-name">Real-Time Operating Systems</span>
+                <span class="cert-issuer">NPTEL / IIT Kharagpur (Feb, Mar 2026)</span>
+              </div>
+              <div class="cert-item">
+                <span class="cert-name">IBM Certified Associate</span>
+                <span class="cert-issuer">Generative AI with Watsonx</span>
+              </div>
+              <div class="cert-item">
+                <span class="cert-name">AWS Academy Graduate</span>
+                <span class="cert-issuer">Cloud Foundations & Cloud Architecting (Sep, Nov 2025)</span>
+              </div>
+              <div class="cert-item">
+                <span class="cert-name">Quantum Computing Program</span>
+                <span class="cert-issuer">WISER / Amaravati Quantum Valley (Qiskit, PennyLane)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="resume-cta-wrap reveal">
+          <a href="assets/resume/Resume_Harshal.pdf" download="Resume_Harshal.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download resume (PDF)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <span class="section-label">05 / Connection</span>
+        <h2 class="section-title">Get in touch</h2>
+
+        <div class="contact-card reveal">
+          <p class="contact-text">
+            Open to backend engineering and AI systems roles. Feel free to reach out directly via email or connect on social platforms.
+          </p>
+
+          <div class="contact-links">
+            <a href="mailto:harshalmalla15@gmail.com" class="btn btn-primary contact-email-btn">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              harshalmalla15@gmail.com
+            </a>
+
+            <a href="https://linkedin.com/in/harshalmalla" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+
+            <a href="https://github.com/harshalmalla" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub Profile">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-copy">
+        © <span id="year">2026</span> Malla Harshal Kumar. All rights reserved.
+      </div>
+
+      <div class="footer-right">
+        <a href="https://linkedin.com/in/harshalmalla" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        <a href="https://github.com/harshalmalla" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub Profile">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+        <a href="#top" id="back-to-top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="js/main.js"></script>
+</body>
+</html>

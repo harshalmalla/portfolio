@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Local rollback snapshots and editor backups
+.snapshots/
+*.bak
+
+# Design handoff mirrors (stale duplicates of the live source)
+uploads/
+uploads 2/
+for-portfolio-folder/
