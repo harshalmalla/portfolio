@@ -7,6 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check user preference for reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Entrance duration lives in CSS (--duration-entrance) so the counter and the
+  // panel it sits inside resolve on one number. Parsed once; falls back to 700ms
+  // if the token is missing or unparseable.
+  const readEntranceDuration = () => {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue('--duration-entrance')
+      .trim();
+    if (raw.endsWith('ms')) {
+      const ms = parseFloat(raw);
+      return Number.isFinite(ms) ? ms : 700;
+    }
+    if (raw.endsWith('s')) {
+      const s = parseFloat(raw);
+      return Number.isFinite(s) ? s * 1000 : 700;
+    }
+    return 700;
+  };
+
+  const ENTRANCE_MS = readEntranceDuration();
+
   // 1. Dynamic Copyright Year
   const yearEl = document.getElementById('year');
   if (yearEl) {
@@ -66,15 +86,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Release the compositor layer once a one-shot entrance transition finishes.
+  // `will-change` is a promise of imminent animation; holding it for the whole
+  // session on ~15 elements costs memory for transforms that never run again.
+  const clearWillChangeAfterEntrance = (el) => {
+    const onDone = (event) => {
+      // Only react to the element's own transition, not a child's bubbling one
+      if (event.target !== el) return;
+      el.style.willChange = 'auto';
+      el.removeEventListener('transitionend', onDone);
+      el.removeEventListener('transitioncancel', onDone);
+    };
+    el.addEventListener('transitionend', onDone);
+    el.addEventListener('transitioncancel', onDone);
+  };
+
   // 3. Hero Staggered Entrance Animation
   const heroElements = document.querySelectorAll('.animate-fade-up');
   if (heroElements.length > 0) {
     if (prefersReducedMotion) {
-      heroElements.forEach(el => el.classList.add('animate-in'));
+      // No transition fires in this branch, so transitionend never arrives:
+      // release the layer hint straight away instead of waiting for it.
+      heroElements.forEach(el => {
+        el.classList.add('animate-in');
+        el.style.willChange = 'auto';
+      });
     } else {
       // Trigger staggered CSS transitions on microtask
       requestAnimationFrame(() => {
-        heroElements.forEach(el => el.classList.add('animate-in'));
+        heroElements.forEach(el => {
+          clearWillChangeAfterEntrance(el);
+          el.classList.add('animate-in');
+        });
       });
     }
   }
@@ -83,11 +126,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealElements = document.querySelectorAll('.reveal');
   if (revealElements.length > 0) {
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      revealElements.forEach(el => el.classList.add('is-revealed'));
+      revealElements.forEach(el => {
+        el.classList.add('is-revealed');
+        el.style.willChange = 'auto';
+      });
     } else {
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            clearWillChangeAfterEntrance(entry.target);
             entry.target.classList.add('is-revealed');
             // Unobserve immediately after trigger to prevent memory leaks or re-runs
             observer.unobserve(entry.target);
@@ -120,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const duration = 900; // ms
+    const duration = ENTRANCE_MS;
     const startTime = performance.now();
 
     function updateCounter(now) {
@@ -169,6 +216,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
 
   if (sections.length > 0 && 'IntersectionObserver' in window) {
+    // Only the desktop nav gets an underline. The mobile sheet's links share the
+    // .nav-link class but live in a different containing block.
+    const desktopNav = document.querySelector('.nav-links');
+    const desktopLinks = desktopNav
+      ? Array.from(desktopNav.querySelectorAll('.nav-link[href^="#"]'))
+      : [];
+
+    let underline = null;
+    if (desktopNav && desktopLinks.length > 0) {
+      underline = document.createElement('span');
+      underline.className = 'nav-underline';
+      underline.setAttribute('aria-hidden', 'true');
+      desktopNav.appendChild(underline);
+    }
+
+    // Remembered so a resize can re-measure without waiting for a new section
+    let activeLink = null;
+
+    const moveUnderline = () => {
+      if (!underline) return;
+
+      if (!activeLink) {
+        underline.style.opacity = '0';
+        underline.style.transform = 'translateX(0) scaleX(0)';
+        return;
+      }
+
+      const navRect = desktopNav.getBoundingClientRect();
+      // Below 768px .nav-links is display:none, so every rect is zero.
+      // Bail rather than snapping the bar to the origin.
+      if (navRect.width === 0) return;
+
+      const linkRect = activeLink.getBoundingClientRect();
+      const x = linkRect.left - navRect.left;
+      const y = linkRect.bottom - navRect.top + 6;
+
+      // `top` is a layout property: set once per measurement, never transitioned.
+      underline.style.top = `${y}px`;
+      underline.style.opacity = '1';
+      underline.style.transform = `translateX(${x}px) scaleX(${linkRect.width})`;
+    };
+
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -180,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
               link.classList.remove('active');
             }
           });
+          activeLink = desktopLinks.find(
+            link => link.getAttribute('href') === `#${currentId}`
+          ) || null;
+          moveUnderline();
         }
       });
     }, {
@@ -189,6 +282,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     sections.forEach(section => navObserver.observe(section));
+
+    // Re-measure on layout changes (viewport resize, font load, zoom) without a
+    // resize or scroll listener. ResizeObserver fires only when the nav's own
+    // box actually changes, which is exactly the condition that invalidates the
+    // cached rects.
+    if (underline && 'ResizeObserver' in window) {
+      const navResizeObserver = new ResizeObserver(() => {
+        // Suppress the slide while re-measuring after a layout change: the bar
+        // should reappear in its new place, not travel there.
+        const previous = underline.style.transition;
+        underline.style.transition = 'none';
+        moveUnderline();
+        // Force a style flush so the suppressed value is committed before the
+        // transition is restored, otherwise both changes coalesce into one frame.
+        void underline.offsetWidth;
+        underline.style.transition = previous;
+      });
+      navResizeObserver.observe(desktopNav);
+    }
   }
 
   // 7. Mobile Navigation Toggle, Scroll Lock & Focus Management

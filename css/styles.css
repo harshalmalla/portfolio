@@ -65,6 +65,12 @@
   --ease-out-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.2s var(--ease-out-cubic);
   --transition-smooth: 0.35s var(--ease-out-cubic);
+  /* One duration for every entrance on the page: hero fade-up, scroll reveals,
+     and the stat counter in js/main.js, which reads --duration-entrance. */
+  --duration-entrance: 0.7s;
+  --transition-entrance: var(--duration-entrance) var(--ease-out-cubic);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -244,7 +250,6 @@ section[id] {
   white-space: nowrap;
   cursor: pointer;
   transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-  will-change: transform;
 }
 
 .btn-primary {
@@ -257,8 +262,13 @@ section[id] {
 .btn-primary:hover {
   background-color: var(--accent-hover);
   border-color: var(--accent-hover);
-  transform: translateY(-2px);
   box-shadow: 0 6px 24px var(--accent-glow-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .btn-primary:active {
@@ -276,8 +286,13 @@ section[id] {
   background-color: var(--bg-elev);
   border-color: var(--accent);
   color: var(--accent);
-  transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--shadow-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .btn-secondary:active {
@@ -360,6 +375,7 @@ section[id] {
   display: flex;
   align-items: center;
   gap: 2rem;
+  position: relative;
 }
 
 .nav-link {
@@ -373,6 +389,26 @@ section[id] {
 .nav-link:hover,
 .nav-link.active {
   color: var(--text);
+}
+
+/* Shared active-section underline. Created by js/main.js and moved with
+   transform only; `top` and the 1px base width are set once at measure time
+   and never transitioned. */
+.nav-underline {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: var(--radius-full);
+  transform-origin: left center;
+  transform: translateX(0) scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.2s var(--ease-in-out),
+    opacity 0.2s var(--ease-in-out);
 }
 
 .nav-cta {
@@ -391,31 +427,75 @@ section[id] {
   color: var(--text-soft);
   background-color: transparent;
   transition: transform var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
-  will-change: transform;
 }
 
 .theme-toggle:hover {
   color: var(--accent);
   border-color: var(--accent);
   background-color: var(--accent-soft);
-  transform: translateY(-2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .theme-toggle:active {
   transform: translateY(0) scale(0.96);
 }
 
-/* Show the icon for the mode the click will switch TO. */
-.icon-sun { display: none; }
-.icon-moon { display: block; }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .icon-sun { display: block; }
-  :root:not([data-theme="light"]) .icon-moon { display: none; }
+/* Show the icon for the mode the click will switch TO.
+   Both icons are always in the layout and stacked; `display` cannot be
+   transitioned, so visibility is expressed with opacity and transform.
+   Scoped to .theme-toggle so the rules cannot leak to any future icon. */
+.theme-toggle {
+  position: relative;
 }
 
-:root[data-theme="dark"] .icon-sun { display: block; }
-:root[data-theme="dark"] .icon-moon { display: none; }
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition:
+    opacity 0.18s var(--ease-out-cubic),
+    transform 0.18s var(--ease-out-cubic);
+}
+
+/* Hidden icon: faded out, rotated back, and slightly smaller. */
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.9);
+}
+
+/* Visible icon: at rest, centred, full size. */
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) scale(0.9);
+  }
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.9);
+}
 
 .theme-toggle-mobile {
   align-self: flex-start;
@@ -430,7 +510,7 @@ section[id] {
 
 /* Mobile Menu Sheet */
 .mobile-menu {
-  display: none;
+  display: flex;
   position: fixed;
   top: var(--nav-height);
   left: 0;
@@ -442,10 +522,27 @@ section[id] {
   gap: 1.5rem;
   z-index: 999;
   border-top: 1px solid var(--border);
+
+  /* Closed state. The sheet is anchored to the navbar's bottom edge, so it
+     retreats upward by 8px rather than scaling from its own centre. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transform-origin: top center;
+  transition:
+    opacity 0.2s var(--ease-drawer),
+    transform 0.2s var(--ease-drawer),
+    visibility 0s linear 0.2s;
 }
 
 .mobile-menu.open {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.26s var(--ease-drawer),
+    transform 0.26s var(--ease-drawer),
+    visibility 0s linear 0s;
 }
 
 .mobile-menu .nav-link {
@@ -526,7 +623,7 @@ section[id] {
 .animate-fade-up {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.65s var(--ease-out-cubic), transform 0.65s var(--ease-out-cubic);
+  transition: opacity var(--transition-entrance), transform var(--transition-entrance);
   will-change: opacity, transform;
 }
 
@@ -535,21 +632,43 @@ section[id] {
   transform: translateY(0);
 }
 
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.25s; }
-.stagger-3 { transition-delay: 0.4s; }
+.stagger-1 { transition-delay: 0.06s; }
+.stagger-2 { transition-delay: 0.12s; }
+.stagger-3 { transition-delay: 0.18s; }
 
 /* --- Scroll Reveal Animations (IntersectionObserver) --- */
 .reveal {
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 0.75s var(--ease-out-cubic), transform 0.75s var(--ease-out-cubic);
+  transition: opacity var(--transition-entrance), transform var(--transition-entrance);
+  /* Sibling stagger. --i is set inline on each element that participates;
+     everything else falls back to 0 and reveals with no delay. */
+  transition-delay: calc(var(--i, 0) * 50ms);
   will-change: opacity, transform;
 }
 
 .reveal.is-revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Heading wipe. Shares the .is-revealed trigger with .reveal, so the existing
+   IntersectionObserver in js/main.js drives it with no JS changes.
+   clip-path is the one non-transform property animated on this page; it is
+   composited, so this stays off the main thread. */
+.reveal-wipe {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.5s var(--ease-out-cubic);
+}
+
+.reveal-wipe.is-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* A wiping element opts out of the fade-up: the wipe is the whole effect. */
+.reveal-wipe.reveal {
+  opacity: 1;
+  transform: none;
 }
 
 /* --- About Section --- */
@@ -580,13 +699,17 @@ section[id] {
   border-radius: var(--radius-card);
   padding: 3rem;
   transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-  will-change: transform;
 }
 
 .project-card:hover {
   border-color: var(--border-strong);
-  transform: translateY(-2px);
   box-shadow: 0 16px 40px var(--shadow-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 /* Asymmetric flip for Project 2 */
@@ -776,14 +899,18 @@ section[id] {
   padding: 0.4rem 0.9rem;
   border-radius: var(--radius-full);
   transition: transform var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
-  will-change: transform;
 }
 
 .skill-pill:hover {
   border-color: var(--accent);
   color: var(--accent);
   background-color: var(--accent-soft);
-  transform: translateY(-2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill-pill:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .skill-pill:active {
@@ -909,14 +1036,18 @@ section[id] {
   border: 1px solid var(--border);
   color: var(--text-soft);
   transition: transform var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
-  will-change: transform;
 }
 
 .social-link:hover {
   color: var(--accent);
   border-color: var(--accent);
   background-color: var(--accent-soft);
-  transform: translateY(-2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .social-link:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .social-link:active {
@@ -1029,9 +1160,11 @@ section[id] {
     scroll-behavior: auto !important;
   }
 
+  /* Keyframe animations are always suppressed. Transitions are NOT blanket-killed:
+     the targeted transform overrides below remove the movement, which lets
+     colour, border, and opacity feedback survive for reduced-motion users. */
   *, *::before, *::after {
     animation: none !important;
-    transition: none !important;
   }
 
   .hero::before {
@@ -1046,12 +1179,50 @@ section[id] {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+    transition-delay: 0s !important;
+  }
+
+  .stagger-1,
+  .stagger-2,
+  .stagger-3 {
+    transition-delay: 0s !important;
+  }
+
+  .reveal-wipe {
+    clip-path: none !important;
   }
 
   /* Progress bar collapses to invisible rather than jumping */
   .nav-progress {
     animation: none !important;
     transform: scaleX(0) !important;
+  }
+
+  /* The icons still swap, they just do not turn or shrink. */
+  .theme-toggle .icon-sun,
+  .theme-toggle .icon-moon {
+    transform: translate(-50%, -50%) !important;
+    transition: opacity 0.12s linear !important;
+  }
+
+  /* The underline still marks the active section, it just does not travel. */
+  .nav-underline {
+    transition: opacity 0.15s linear !important;
+  }
+
+  /* The sheet still appears and disappears, it just does not travel. */
+  .mobile-menu {
+    transform: none !important;
+    transition:
+      opacity 0.15s linear,
+      visibility 0s linear 0.15s !important;
+  }
+
+  .mobile-menu.open {
+    transform: none !important;
+    transition:
+      opacity 0.15s linear,
+      visibility 0s linear 0s !important;
   }
 
   .btn:hover,
