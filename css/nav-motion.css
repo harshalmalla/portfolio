@@ -93,3 +93,99 @@ body.is-scrolled .brand { transform: scale(0.94); }
   .hero-line { clip-path: none; }
   .hero-headline.animate-in .hero-line { animation: none; }
 }
+
+/* 6. Brand lockup: name -> role -> terminal wordmark ---------------------
+   Two triggers. Hover rolls name to role and on to the wordmark (board 6a).
+   Scrolling past the sentinel holds the wordmark while the bar is condensed
+   (board 6b), and hover is ignored while condensed so the two do not fight. */
+
+.brand { gap: 0.7rem; align-items: center; }
+
+.brand-bar {
+  width: 3px;
+  height: 30px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
+  transition: height 0.45s var(--ease-drawer);
+  flex: none;
+}
+
+.brand-window {
+  display: block;
+  height: 30px;
+  overflow: hidden;
+}
+
+.brand-roll {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s var(--ease-drawer);
+}
+
+.brand-line {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.brand-name { font-weight: 700; letter-spacing: -0.015em; }
+
+.brand-role {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.brand-mark {
+  align-items: baseline;
+  gap: 1px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.brand-slash { color: var(--accent); }
+.brand-tld { color: var(--text-faint); }
+
+.brand-caret {
+  margin-left: 3px;
+  width: 8px;
+  height: 15px;
+  background: var(--accent);
+  transform: translateY(1px);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out-cubic);
+}
+
+@keyframes brandCaret {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Stage 1: role line. Stage 2 and the condensed state: wordmark. */
+.brand.is-step-1 .brand-roll { transform: translateY(-30px); }
+.brand.is-step-1 .brand-bar  { height: 38px; }
+
+.brand.is-step-2 .brand-roll,
+body.is-scrolled .brand .brand-roll { transform: translateY(-60px); }
+
+.brand.is-step-2 .brand-bar,
+body.is-scrolled .brand .brand-bar { height: 20px; }
+
+.brand.is-step-2 .brand-caret,
+body.is-scrolled .brand .brand-caret {
+  opacity: 1;
+  animation: brandCaret 1.05s steps(1) infinite;
+}
+
+/* The condensed bar already scales the whole brand; do not stack that on the roll. */
+body.is-scrolled .brand { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-roll,
+  .brand-bar { transition-duration: 0.01ms; }
+  .brand.is-step-2 .brand-caret,
+  body.is-scrolled .brand .brand-caret { animation: none; opacity: 1; }
+}
