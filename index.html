@@ -5,7 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Malla Harshal Kumar | Backend Systems & AI Agents Engineer</title>
   <meta name="description" content="Personal portfolio of Malla Harshal Kumar, final-year Computer Science engineer specializing in backend systems, distributed logic, and autonomous AI agents.">
-  <meta name="theme-color" content="#0b0c0e">
+
+  <!-- Theme bootstrap: stamp the stored theme before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.setAttribute('data-theme', stored);
+        }
+      } catch (e) { /* storage unavailable; fall back to system preference */ }
+    })();
+  </script>
+
+  <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)">
+
+  <!-- Favicon: accent dot mark, matching the brand dot in the nav -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%234f8cff'/%3E%3C/svg%3E">
+
+  <!--
+    PLACEHOLDER: replace https://REPLACE-WITH-YOUR-DOMAIN.example with the real
+    deployed origin in the canonical link, og:url, og:image and twitter:image below.
+  -->
+  <link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN.example/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Malla Harshal Kumar | Backend Systems & AI Agents Engineer">
+  <meta property="og:description" content="Final-year CS engineer specializing in agentic workflows, distributed logic, and high-performance backend architecture.">
+  <meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN.example/">
+  <!-- TODO: the 1200x630 share card at assets/og/og-card.png is not present yet; create it. -->
+  <meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN.example/assets/og/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Malla Harshal Kumar, backend systems and AI agents engineer">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Malla Harshal Kumar | Backend Systems & AI Agents Engineer">
+  <meta name="twitter:description" content="Final-year CS engineer specializing in agentic workflows, distributed logic, and high-performance backend architecture.">
+  <meta name="twitter:image" content="https://REPLACE-WITH-YOUR-DOMAIN.example/assets/og/og-card.png">
+  <meta name="twitter:image:alt" content="Malla Harshal Kumar, backend systems and AI agents engineer">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Malla Harshal Kumar",
+    "email": "mailto:harshalmalla15@gmail.com",
+    "url": "https://REPLACE-WITH-YOUR-DOMAIN.example/",
+    "jobTitle": "Backend Systems and AI Agents Engineer",
+    "description": "Final-year CS engineer specializing in agentic workflows, distributed logic, and high-performance backend architecture.",
+    "sameAs": [
+      "https://github.com/harshalmalla",
+      "https://linkedin.com/in/harshalmalla"
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "VIT-AP University"
+    }
+  }
+  </script>
 
   <!-- Google Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +93,22 @@
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#resume" class="nav-link">Resume</a>
         <a href="#contact" class="btn btn-primary nav-cta">Get in touch</a>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"></path>
+          </svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
       </nav>
 
       <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -40,6 +118,8 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
+
+      <span class="nav-progress" aria-hidden="true"></span>
     </div>
   </header>
 
@@ -50,6 +130,22 @@
     <a href="#skills" class="nav-link">Skills</a>
     <a href="#resume" class="nav-link">Resume</a>
     <a href="#contact" class="btn btn-primary nav-cta" style="margin-top: 1rem; width: 100%;">Get in touch</a>
+    <button type="button" class="theme-toggle theme-toggle-mobile" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"></path>
+      </svg>
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <line x1="12" y1="2" x2="12" y2="4"></line>
+        <line x1="12" y1="20" x2="12" y2="22"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="2" y1="12" x2="4" y2="12"></line>
+        <line x1="20" y1="12" x2="22" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
   </div>
 
   <main>
@@ -82,7 +178,6 @@
     <!-- 3. About Section -->
     <section id="about" class="section">
       <div class="container">
-        <span class="section-label">01 / Background</span>
         <h2 class="section-title">About</h2>
         <div class="about-content reveal">
           <p class="about-text">
@@ -95,17 +190,16 @@
     <!-- 4. Projects Section -->
     <section id="projects" class="section">
       <div class="container">
-        <span class="section-label">02 / Featured Work</span>
         <h2 class="section-title">Projects</h2>
 
         <div class="projects-grid">
-          
+
           <!-- PROJECT 1: Eco-Loop -->
           <article class="project-card reveal">
             <div class="project-info">
               <h3 class="project-title">Eco-Loop</h3>
               <p class="project-subtitle">Autonomous LLM agent for closed-loop building energy control (2026)</p>
-              
+
               <div class="project-stack" aria-label="Technologies used">
                 <span class="tag">Python</span>
                 <span class="tag">FastAPI</span>
@@ -166,7 +260,7 @@
             <div class="project-info">
               <h3 class="project-title">Bay Manager</h3>
               <p class="project-subtitle">Garage service management platform (2025)</p>
-              
+
               <div class="project-stack" aria-label="Technologies used">
                 <span class="tag">React</span>
                 <span class="tag">Node.js/Express</span>
@@ -189,86 +283,84 @@
     <!-- 5. Skills Section -->
     <section id="skills" class="section">
       <div class="container">
-        <span class="section-label">03 / Technical Matrix</span>
         <h2 class="section-title">Skills</h2>
 
-        <div class="skills-grid">
-          
-          <div class="skill-card reveal">
-            <h3 class="skill-category-name">Languages</h3>
-            <div class="skill-tags">
+        <dl class="skills-list">
+
+          <div class="skill-row reveal">
+            <dt class="skill-term">Languages</dt>
+            <dd class="skill-pills">
               <span class="skill-pill">Java</span>
               <span class="skill-pill">Python</span>
               <span class="skill-pill">C</span>
               <span class="skill-pill">SQL</span>
               <span class="skill-pill">JavaScript</span>
-            </div>
+            </dd>
           </div>
 
-          <div class="skill-card reveal">
-            <h3 class="skill-category-name">AI & LLM</h3>
-            <div class="skill-tags">
+          <div class="skill-row reveal">
+            <dt class="skill-term">AI &amp; LLM</dt>
+            <dd class="skill-pills">
               <span class="skill-pill">Model Context Protocol</span>
               <span class="skill-pill">LangChain / LangGraph</span>
               <span class="skill-pill">Agentic Tool-Calling</span>
               <span class="skill-pill">Prompt Engineering</span>
               <span class="skill-pill">Ollama (Llama 3.1)</span>
               <span class="skill-pill">IBM Watsonx</span>
-            </div>
+            </dd>
           </div>
 
-          <div class="skill-card reveal">
-            <h3 class="skill-category-name">Backend</h3>
-            <div class="skill-tags">
+          <div class="skill-row reveal">
+            <dt class="skill-term">Backend</dt>
+            <dd class="skill-pills">
               <span class="skill-pill">FastAPI</span>
               <span class="skill-pill">Node.js / Express</span>
               <span class="skill-pill">REST API Design</span>
               <span class="skill-pill">Socket.io</span>
               <span class="skill-pill">pytest</span>
-            </div>
+            </dd>
           </div>
 
-          <div class="skill-card reveal">
-            <h3 class="skill-category-name">Frontend</h3>
-            <div class="skill-tags">
+          <div class="skill-row reveal">
+            <dt class="skill-term">Frontend</dt>
+            <dd class="skill-pills">
               <span class="skill-pill">React</span>
               <span class="skill-pill">JavaScript</span>
               <span class="skill-pill">HTML</span>
               <span class="skill-pill">CSS</span>
               <span class="skill-pill">Recharts</span>
-            </div>
+            </dd>
           </div>
 
-          <div class="skill-card reveal">
-            <h3 class="skill-category-name">Databases</h3>
-            <div class="skill-tags">
+          <div class="skill-row reveal">
+            <dt class="skill-term">Databases</dt>
+            <dd class="skill-pills">
               <span class="skill-pill">SQL</span>
               <span class="skill-pill">MongoDB</span>
-            </div>
+            </dd>
           </div>
 
-          <div class="skill-card reveal">
-            <h3 class="skill-category-name">Tools & Cloud</h3>
-            <div class="skill-tags">
+          <div class="skill-row reveal">
+            <dt class="skill-term">Tools &amp; Cloud</dt>
+            <dd class="skill-pills">
               <span class="skill-pill">Git</span>
               <span class="skill-pill">Docker</span>
               <span class="skill-pill">AWS</span>
               <span class="skill-pill">VS Code</span>
-            </div>
+            </dd>
           </div>
 
-        </div>
+        </dl>
       </div>
     </section>
 
     <!-- 6. Resume & Background Section -->
     <section id="resume" class="section">
       <div class="container">
-        <span class="section-label">04 / Credentials</span>
-        <h2 class="section-title">Education & Certifications</h2>
+        <h2 class="section-title">Education &amp; Certifications</h2>
 
         <div class="resume-grid">
-          
+
           <!-- Education Cluster -->
           <div class="resume-card reveal">
             <h3 class="resume-card-title">Education</h3>
@@ -293,7 +385,7 @@
               </div>
               <div class="cert-item">
                 <span class="cert-name">AWS Academy Graduate</span>
-                <span class="cert-issuer">Cloud Foundations & Cloud Architecting (Sep, Nov 2025)</span>
+                <span class="cert-issuer">Cloud Foundations &amp; Cloud Architecting (Sep, Nov 2025)</span>
               </div>
               <div class="cert-item">
                 <span class="cert-name">Quantum Computing Program</span>
@@ -320,7 +412,6 @@
     <!-- 7. Contact Section -->
     <section id="contact" class="section">
       <div class="container">
-        <span class="section-label">05 / Connection</span>
         <h2 class="section-title">Get in touch</h2>
 
         <div class="contact-card reveal">

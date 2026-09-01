@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Malla Harshal Kumar, backend systems and AI agents engineer">
+  <title>Malla Harshal Kumar - Backend Systems and AI Agents Engineer</title>
+
+  <!-- Palette copied from the site dark theme: surface #0b0c0e, accent #4f8cff -->
+  <defs>
+    <style>
+      .heading { font-family: "Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0b0c0e"/>
+
+  <!-- Subtle grid, kept low contrast so text stays dominant -->
+  <g stroke="#ffffff" stroke-opacity="0.035" stroke-width="1">
+    <path d="M0 105.5H1200M0 210.5H1200M0 315.5H1200M0 420.5H1200M0 525.5H1200"/>
+    <path d="M120.5 0V630M240.5 0V630M360.5 0V630M480.5 0V630M600.5 0V630M720.5 0V630M840.5 0V630M960.5 0V630M1080.5 0V630"/>
+  </g>
+
+  <!-- Single accent element: the brand dot motif from the nav -->
+  <circle cx="96" cy="118" r="13" fill="#4f8cff"/>
+
+  <text class="mono" x="128" y="127" fill="#9aa3ad" font-size="22" letter-spacing="3.4">
+    BACKEND SYSTEMS AND AI AGENTS ENGINEER
+  </text>
+
+  <text class="heading" x="90" y="286" fill="#f4f6f8" font-size="94" font-weight="700" letter-spacing="-2">
+    Malla Harshal Kumar
+  </text>
+
+  <text class="heading" x="90" y="386" fill="#c6ccd4" font-size="44" font-weight="500">
+    Backend systems and AI agents,
+  </text>
+  <text class="heading" x="90" y="446" fill="#c6ccd4" font-size="44" font-weight="500">
+    built to hold up under load.
+  </text>
+
+  <rect x="90" y="512" width="72" height="3" fill="#4f8cff" fill-opacity="0.5"/>
+
+  <text class="mono" x="90" y="562" fill="#7d8894" font-size="21" letter-spacing="1.2">
+    Agentic workflows / distributed logic / high-performance backends
+  </text>
+</svg>
