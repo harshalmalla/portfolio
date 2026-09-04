@@ -1010,11 +1010,41 @@ section[id] {
 }
 
 /* --- Resume & Background Section --- */
-.resume-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
+/* --- Education list (own section, split from Certifications) --- */
+.edu-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.edu-entry {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 2rem;
-  margin-bottom: 2.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-entry:last-child { border-bottom: none; }
+
+.edu-main { min-width: 0; }
+
+.edu-meta {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  white-space: nowrap;
+  flex: none;
+}
+
+@media (max-width: 768px) {
+  .edu-entry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .edu-meta { white-space: normal; }
 }
 
 .resume-card {
@@ -1039,11 +1069,6 @@ section[id] {
   border-bottom: 1px solid var(--border);
 }
 
-.education-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
 
 .edu-school {
   font-size: 1.1rem;
@@ -1096,10 +1121,6 @@ section[id] {
   color: var(--text-soft);
 }
 
-.resume-cta-wrap {
-  display: flex;
-  justify-content: flex-start;
-}
 
 /* --- Contact Section --- */
 .contact-card {
@@ -1209,9 +1230,6 @@ section[id] {
     order: 2;
   }
 
-  .resume-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 768px) {
