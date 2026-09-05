@@ -1251,16 +1251,44 @@ section[id] {
     display: none;
   }
 
+  /* Touch target: 44x44 minimum. Box only, the icon size is unchanged. */
   .nav-toggle {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Mobile menu sheet: neutralise the desktop sliding-pill styling that
+     css/nav-motion.css applies globally to .nav-link (it loads after this
+     file). Without this the 999px radius curves the row separator, which is
+     the only visual this element has. Scoped to the sheet, so the desktop
+     .nav-links .nav-link pill is untouched. */
+  .mobile-menu .nav-link {
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Hero: layout only, the copy is unchanged. Drop the forced full-viewport
+     stretch and tighten the vertical rhythm so the CTAs are not stranded
+     below the fold on a phone. */
+  .hero {
+    min-height: 0;
+    padding-top: calc(var(--nav-height) + 1rem);
+    padding-bottom: 3rem;
   }
 
   .hero-headline {
     font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
 
   .hero-subtext {
-    font-size: 1.05rem;
+    font-size: 1rem;
+    line-height: 1.45;
+    margin-bottom: 1.5rem;
   }
 
   .fact-grid {
@@ -1281,6 +1309,23 @@ section[id] {
   .footer-container {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Touch targets: 44x44 minimum on touch-sized viewports. Box minimums only,
+     no font-size, radius or colour changes. Desktop keeps the compact sizing. */
+  .theme-toggle.theme-toggle-mobile {
+    width: 44px;
+    height: 44px;
+  }
+
+  .btn.btn-sm {
+    min-height: 44px;
+  }
+
+  .back-to-top {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 }
 
