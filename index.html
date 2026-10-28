@@ -18,8 +18,8 @@
     })();
   </script>
 
-  <!-- Intro gate: first visit per session with motion allowed gets the sticker
-       slam. Without JS the class never lands, so the sheet never shows. -->
+  <!-- Intro gate: first visit per session with motion allowed gets the glitch
+       boot. Without JS the class never lands, so the sheet never shows. -->
   <script>
     (function () {
       try {
@@ -93,17 +93,14 @@
 </head>
 <body id="top">
 
-  <!-- 0. First-visit Intro (sticker slam). Decorative; shown only under .intro-on -->
+  <!-- 0. First-visit Intro (glitch boot). Decorative; shown only under .intro-on -->
   <div class="intro" aria-hidden="true">
-    <div class="intro-sheet">
-      <div class="intro-stage">
-        <span class="intro-pov">pov: you just opened</span>
-        <span class="intro-sticker intro-sticker--name">harshal</span>
-        <span class="intro-sticker intro-sticker--dev">dev</span>
-        <span class="intro-sticker intro-sticker--role">backend · ai agents</span>
-        <span class="intro-sticker intro-sticker--star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.2 7.2L21 4.5l-4.1 6.1L24 12l-7.1 1.4L21 19.5l-6.8-2.7L12 24l-2.2-7.2L3 19.5l4.1-6.1L0 12l7.1-1.4L3 4.5l6.8 2.7z"/></svg></span>
-        <span class="intro-sticker intro-sticker--tag">~/harshal.dev</span>
-      </div>
+    <div class="intro-strips">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="intro-boot">
+      <span class="intro-glitch" data-text="HARSHAL">HARSHAL</span>
+      <span class="intro-exe">&gt; loading_main_character.exe</span>
     </div>
   </div>
 

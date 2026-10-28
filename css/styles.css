@@ -552,13 +552,13 @@ section[id] {
   border-bottom: 1px solid var(--border);
 }
 
-/* --- First-visit Intro (sticker slam) ---
+/* --- First-visit Intro (glitch boot) ---
    Hidden by default so a visitor without JS never meets a sheet that cannot
    leave. The inline gate in <head> adds .intro-on only on a first visit with
-   motion allowed. The exit is pure CSS on a fixed delay, so the sheet leaves
-   even if main.js never runs; main.js only hands off to the hero and removes
-   the node. Sticker sizes are in cqw so the composition scales with the stage.
-   The lime is intro-only: it is not a token because nothing else uses it. */
+   motion allowed. The tear-away is pure CSS on fixed delays, so the sheet
+   leaves even if main.js never runs; main.js only scrambles the name, hands
+   off to the hero and removes the node. The lime and near-black are
+   intro-only: they are not tokens because nothing else uses them. */
 .intro {
   display: none;
 }
@@ -572,136 +572,98 @@ section[id] {
   pointer-events: none;
 }
 
-.intro-sheet {
-  position: absolute;
-  /* Oversized so the tilt on exit never shows a corner of the page early */
-  inset: -4vmax;
-  background: #d6ff3d;
-  animation: introLift 0.45s cubic-bezier(0.7, 0, 0.84, 0) 1.45s both;
-}
-
-.intro-stage {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  /* Fits by width or height, whichever runs out first (16:10 at 86vh = 137.6vh) */
-  width: min(680px, 92vw, 137.6vh);
-  aspect-ratio: 16 / 10;
-  transform: translate(-50%, -50%);
-  container-type: inline-size;
-}
-
-.intro-pov {
+/* Six horizontal strips make up the sheet; alternate ones tear left and right */
+.intro-strips span {
   position: absolute;
   left: 0;
-  top: 0;
-  font-family: var(--font-mono);
-  font-size: max(12px, 2.1cqw);
-  font-weight: 500;
-  color: #0d3b3f;
-  opacity: 0;
-  animation: introFade 0.25s ease-out 0.05s both;
+  right: 0;
+  /* A hair over a sixth so neighbouring strips overlap and no seam shows */
+  height: 17%;
+  background: #061e20;
+  animation: 0.34s cubic-bezier(0.7, 0, 0.84, 0) both;
 }
 
-.intro-sticker {
+.intro-strips span:nth-child(1) { top: 0%;     animation-name: introTearL; animation-delay: 1.25s; }
+.intro-strips span:nth-child(2) { top: 16.66%; animation-name: introTearR; animation-delay: 1.28s; }
+.intro-strips span:nth-child(3) { top: 33.33%; animation-name: introTearL; animation-delay: 1.31s; }
+.intro-strips span:nth-child(4) { top: 50%;    animation-name: introTearR; animation-delay: 1.34s; }
+.intro-strips span:nth-child(5) { top: 66.66%; animation-name: introTearL; animation-delay: 1.37s; }
+.intro-strips span:nth-child(6) { top: 83.33%; animation-name: introTearR; animation-delay: 1.40s; }
+
+.intro-boot {
   position: absolute;
-  opacity: 0;
-  color: #0d3b3f;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  line-height: 1;
-  white-space: nowrap;
-  animation: introSlam 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-.intro-sticker--name {
-  --r: -6deg;
-  left: 24.7%;
-  top: 35.3%;
-  padding: 1.5cqw 4.4cqw 2.4cqw;
-  border-radius: 3.5cqw;
-  background: #0d3b3f;
-  color: #eef6f4;
-  font-size: 10.6cqw;
-  letter-spacing: -0.04em;
-  box-shadow: 1cqw 1cqw 0 #ff7262;
-  animation-delay: 0.3s;
-}
-
-.intro-sticker--dev {
-  --r: 12deg;
-  right: 15.3%;
-  top: 16.5%;
-  width: 17.4cqw;
-  height: 17.4cqw;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: max(2px, 0.45cqw) solid #0d3b3f;
-  border-radius: 50%;
-  background: #ff7262;
-  font-size: 4.1cqw;
-  box-shadow: 0.6cqw 0.6cqw 0 #0d3b3f;
-  animation-delay: 0.58s;
+  gap: 1rem;
+  padding: 0 1rem;
+  /* Faint scanlines */
+  background: repeating-linear-gradient(0deg, rgba(238, 246, 244, 0.035) 0 1px, transparent 1px 4px);
+  /* Cut, not faded, a beat before the strips tear */
+  animation: introBootOut 0.01s steps(1) 1.22s both;
 }
 
-.intro-sticker--role {
-  --r: -9deg;
-  left: 16.2%;
-  bottom: 17.9%;
-  padding: 1.2cqw 3.2cqw;
-  border: max(2px, 0.45cqw) solid #0d3b3f;
-  border-radius: 999px;
-  background: #eef6f4;
-  font-size: 3.5cqw;
-  box-shadow: 0.6cqw 0.6cqw 0 #0d3b3f;
-  animation-delay: 0.78s;
-}
-
-.intro-sticker--star {
-  --r: 0deg;
-  right: 24.7%;
-  bottom: 15%;
-  animation-delay: 0.95s;
-}
-
-.intro-sticker--star svg {
-  display: block;
-  width: 9.4cqw;
-  height: 9.4cqw;
-  animation: introSpin 2.4s linear infinite;
-}
-
-.intro-sticker--tag {
-  --r: 8deg;
-  right: 8.8%;
-  bottom: 35.3%;
-  padding: 0.9cqw 1.8cqw;
-  border-radius: 1cqw;
-  background: #0d3b3f;
-  color: #d6ff3d;
+.intro-glitch {
+  position: relative;
   font-family: var(--font-mono);
-  font-size: max(11px, 1.9cqw);
-  animation-delay: 1.08s;
+  font-size: clamp(2.75rem, 12vw, 7.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: #eef6f4;
 }
 
-@keyframes introFade {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+/* RGB split: clay and lime copies of the same text, jittering through clip bands */
+.intro-glitch::before,
+.intro-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
 }
 
-@keyframes introSlam {
-  0% { opacity: 0; transform: scale(2.6) rotate(calc(var(--r) - 18deg)); }
-  50% { opacity: 1; }
-  100% { opacity: 1; transform: scale(1) rotate(var(--r)); }
+.intro-glitch::before {
+  color: #ff7262;
+  transform: translateX(-0.05em);
+  animation: introJitterA 0.3s steps(2) infinite;
 }
 
-@keyframes introSpin {
-  to { transform: rotate(360deg); }
+.intro-glitch::after {
+  color: #d6ff3d;
+  transform: translateX(0.05em);
+  animation: introJitterB 0.26s steps(2) infinite;
 }
 
-@keyframes introLift {
-  to { transform: translateY(-115%) rotate(-4deg); }
+.intro-exe {
+  font-family: var(--font-mono);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  color: #d6ff3d;
+}
+
+@keyframes introTearL {
+  to { transform: translateX(-102%); }
+}
+
+@keyframes introTearR {
+  to { transform: translateX(102%); }
+}
+
+@keyframes introBootOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes introJitterA {
+  0% { clip-path: inset(10% 0 62% 0); }
+  50% { clip-path: inset(56% 0 14% 0); }
+  100% { clip-path: inset(30% 0 42% 0); }
+}
+
+@keyframes introJitterB {
+  0% { clip-path: inset(64% 0 8% 0); }
+  50% { clip-path: inset(18% 0 58% 0); }
+  100% { clip-path: inset(44% 0 30% 0); }
 }
 
 /* --- Hero Section & Ambient Motion --- */

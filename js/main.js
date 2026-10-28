@@ -122,23 +122,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
-      // First-visit intro: the sticker sheet covers the hero, so start the
-      // cascade as the sheet starts lifting and the two read as one move. The
-      // timer covers a sheet whose animation never starts (styles failed).
+      // First-visit intro: the glitch sheet covers the hero, so start the
+      // cascade as the first strip tears and the two read as one move. The
+      // timer covers strips whose animation never starts (styles failed).
       const intro = document.querySelector('.intro');
-      const introSheet = intro && intro.querySelector('.intro-sheet');
-      if (introSheet && document.documentElement.classList.contains('intro-on')) {
+      const introStrips = intro ? intro.querySelectorAll('.intro-strips span') : [];
+      if (introStrips.length > 0 && document.documentElement.classList.contains('intro-on')) {
+        // Scramble the name through random glyphs, resolving one letter every
+        // third frame (~1s total) so it lands just before the boot text cuts.
+        const glitchEl = intro.querySelector('.intro-glitch');
+        if (glitchEl) {
+          const target = glitchEl.textContent;
+          const glyphs = '!<>-_/[]{}=+*^?#@$%&01';
+          let frame = 0;
+          const scrambleTimer = setInterval(() => {
+            frame++;
+            let out = '';
+            for (let i = 0; i < target.length; i++) {
+              out += frame >= 4 + i * 3
+                ? target[i]
+                : glyphs[Math.floor(Math.random() * glyphs.length)];
+            }
+            glitchEl.textContent = out;
+            glitchEl.setAttribute('data-text', out);
+            if (frame >= 4 + target.length * 3) clearInterval(scrambleTimer);
+          }, 40);
+        }
+
         let handedOff = false;
         const handOff = () => {
           if (handedOff) return;
           handedOff = true;
           playHeroEntrance();
         };
-        introSheet.addEventListener('animationstart', (event) => {
-          if (event.target === introSheet && event.animationName === 'introLift') handOff();
+        const lastStrip = introStrips[introStrips.length - 1];
+        intro.addEventListener('animationstart', (event) => {
+          if (event.target === introStrips[0]) handOff();
         });
-        introSheet.addEventListener('animationend', (event) => {
-          if (event.target !== introSheet || event.animationName !== 'introLift') return;
+        intro.addEventListener('animationend', (event) => {
+          if (event.target !== lastStrip) return;
           intro.remove();
           document.documentElement.classList.remove('intro-on');
         });
