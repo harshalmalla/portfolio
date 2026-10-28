@@ -433,4 +433,41 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // 9. Email Button: desktop browsers often have no mail app registered, so a
+  // bare mailto: link silently does nothing there. On a mouse-driven device,
+  // open Gmail's web compose in a new tab and copy the address for visitors on
+  // another mail service. Touch devices keep the native mailto: handoff.
+  const emailBtn = document.querySelector('.contact-email-btn');
+  const emailLabel = emailBtn && emailBtn.querySelector('.contact-email-label');
+  if (emailBtn && emailLabel) {
+    const desktopQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const mailto = new URL(emailBtn.href);
+    const address = decodeURIComponent(mailto.pathname);
+    const subject = mailto.searchParams.get('subject') || '';
+    const gmailCompose = 'https://mail.google.com/mail/?view=cm&fs=1'
+      + '&to=' + encodeURIComponent(address)
+      + '&su=' + encodeURIComponent(subject);
+    let resetTimer;
+
+    emailBtn.addEventListener('click', (e) => {
+      if (!desktopQuery.matches) return;
+      e.preventDefault();
+      window.open(gmailCompose, '_blank', 'noopener');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(address).then(() => {
+          // Hold the button's width so the shorter label does not shift the
+          // social icons beside it.
+          emailBtn.style.minWidth = emailBtn.offsetWidth + 'px';
+          emailLabel.textContent = 'Address copied';
+          clearTimeout(resetTimer);
+          resetTimer = setTimeout(() => {
+            emailLabel.textContent = address;
+            emailBtn.style.minWidth = '';
+          }, 2000);
+        }).catch(() => { /* clipboard denied; Gmail compose already opened */ });
+      }
+    });
+  }
 });

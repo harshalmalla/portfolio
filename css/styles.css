@@ -1261,6 +1261,7 @@ section[id] {
 
 .contact-email-btn {
   font-size: 1rem;
+  justify-content: center;
 }
 
 .social-link {
