@@ -113,12 +113,39 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } else {
       // Trigger staggered CSS transitions on microtask
-      requestAnimationFrame(() => {
-        heroElements.forEach(el => {
-          clearWillChangeAfterEntrance(el);
-          el.classList.add('animate-in');
+      const playHeroEntrance = () => {
+        requestAnimationFrame(() => {
+          heroElements.forEach(el => {
+            clearWillChangeAfterEntrance(el);
+            el.classList.add('animate-in');
+          });
         });
-      });
+      };
+
+      // First-visit intro: the sticker sheet covers the hero, so start the
+      // cascade as the sheet starts lifting and the two read as one move. The
+      // timer covers a sheet whose animation never starts (styles failed).
+      const intro = document.querySelector('.intro');
+      const introSheet = intro && intro.querySelector('.intro-sheet');
+      if (introSheet && document.documentElement.classList.contains('intro-on')) {
+        let handedOff = false;
+        const handOff = () => {
+          if (handedOff) return;
+          handedOff = true;
+          playHeroEntrance();
+        };
+        introSheet.addEventListener('animationstart', (event) => {
+          if (event.target === introSheet && event.animationName === 'introLift') handOff();
+        });
+        introSheet.addEventListener('animationend', (event) => {
+          if (event.target !== introSheet || event.animationName !== 'introLift') return;
+          intro.remove();
+          document.documentElement.classList.remove('intro-on');
+        });
+        setTimeout(handOff, 2500);
+      } else {
+        playHeroEntrance();
+      }
     }
   }
 

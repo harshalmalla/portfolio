@@ -552,6 +552,158 @@ section[id] {
   border-bottom: 1px solid var(--border);
 }
 
+/* --- First-visit Intro (sticker slam) ---
+   Hidden by default so a visitor without JS never meets a sheet that cannot
+   leave. The inline gate in <head> adds .intro-on only on a first visit with
+   motion allowed. The exit is pure CSS on a fixed delay, so the sheet leaves
+   even if main.js never runs; main.js only hands off to the hero and removes
+   the node. Sticker sizes are in cqw so the composition scales with the stage.
+   The lime is intro-only: it is not a token because nothing else uses it. */
+.intro {
+  display: none;
+}
+
+.intro-on .intro {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.intro-sheet {
+  position: absolute;
+  /* Oversized so the tilt on exit never shows a corner of the page early */
+  inset: -4vmax;
+  background: #d6ff3d;
+  animation: introLift 0.45s cubic-bezier(0.7, 0, 0.84, 0) 1.45s both;
+}
+
+.intro-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* Fits by width or height, whichever runs out first (16:10 at 86vh = 137.6vh) */
+  width: min(680px, 92vw, 137.6vh);
+  aspect-ratio: 16 / 10;
+  transform: translate(-50%, -50%);
+  container-type: inline-size;
+}
+
+.intro-pov {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: max(12px, 2.1cqw);
+  font-weight: 500;
+  color: #0d3b3f;
+  opacity: 0;
+  animation: introFade 0.25s ease-out 0.05s both;
+}
+
+.intro-sticker {
+  position: absolute;
+  opacity: 0;
+  color: #0d3b3f;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  animation: introSlam 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.intro-sticker--name {
+  --r: -6deg;
+  left: 24.7%;
+  top: 35.3%;
+  padding: 1.5cqw 4.4cqw 2.4cqw;
+  border-radius: 3.5cqw;
+  background: #0d3b3f;
+  color: #eef6f4;
+  font-size: 10.6cqw;
+  letter-spacing: -0.04em;
+  box-shadow: 1cqw 1cqw 0 #ff7262;
+  animation-delay: 0.3s;
+}
+
+.intro-sticker--dev {
+  --r: 12deg;
+  right: 15.3%;
+  top: 16.5%;
+  width: 17.4cqw;
+  height: 17.4cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: max(2px, 0.45cqw) solid #0d3b3f;
+  border-radius: 50%;
+  background: #ff7262;
+  font-size: 4.1cqw;
+  box-shadow: 0.6cqw 0.6cqw 0 #0d3b3f;
+  animation-delay: 0.58s;
+}
+
+.intro-sticker--role {
+  --r: -9deg;
+  left: 16.2%;
+  bottom: 17.9%;
+  padding: 1.2cqw 3.2cqw;
+  border: max(2px, 0.45cqw) solid #0d3b3f;
+  border-radius: 999px;
+  background: #eef6f4;
+  font-size: 3.5cqw;
+  box-shadow: 0.6cqw 0.6cqw 0 #0d3b3f;
+  animation-delay: 0.78s;
+}
+
+.intro-sticker--star {
+  --r: 0deg;
+  right: 24.7%;
+  bottom: 15%;
+  animation-delay: 0.95s;
+}
+
+.intro-sticker--star svg {
+  display: block;
+  width: 9.4cqw;
+  height: 9.4cqw;
+  animation: introSpin 2.4s linear infinite;
+}
+
+.intro-sticker--tag {
+  --r: 8deg;
+  right: 8.8%;
+  bottom: 35.3%;
+  padding: 0.9cqw 1.8cqw;
+  border-radius: 1cqw;
+  background: #0d3b3f;
+  color: #d6ff3d;
+  font-family: var(--font-mono);
+  font-size: max(11px, 1.9cqw);
+  animation-delay: 1.08s;
+}
+
+@keyframes introFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes introSlam {
+  0% { opacity: 0; transform: scale(2.6) rotate(calc(var(--r) - 18deg)); }
+  50% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) rotate(var(--r)); }
+}
+
+@keyframes introSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes introLift {
+  to { transform: translateY(-115%) rotate(-4deg); }
+}
+
 /* --- Hero Section & Ambient Motion --- */
 .hero {
   min-height: 100dvh;
@@ -1344,6 +1496,12 @@ section[id] {
 
   .hero::before {
     animation: none !important;
+  }
+
+  /* The gate already skips the intro; this guards a preference flipped mid-visit,
+     since a sheet with its exit animation suppressed would never leave. */
+  .intro {
+    display: none !important;
   }
 
   .animate-fade-up {
